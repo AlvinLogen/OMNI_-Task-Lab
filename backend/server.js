@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const compression = require('compression');
 
-const logger = require('./utils/logger');
+const { logger } = require('./utils/logger');
 const routes = require('./routes/index');
 const { connectDB, disconnectDB } = require('./database/connection');
 

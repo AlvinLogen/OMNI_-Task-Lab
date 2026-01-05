@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const sql = require('mssql');
-const logger = require('../utils/logger');
+const { databaseLogger: logger } = require('../utils/logger');
 const { error } = require('console');
 
 const config = {

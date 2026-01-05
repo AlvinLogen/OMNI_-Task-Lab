@@ -28,6 +28,7 @@
     "nodemon": "^3.1.11",
     "path": "^0.12.7",
     "swagger-ui-express": "^5.0.1",
-    "winston": "^3.19.0"
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0"
   }
 }

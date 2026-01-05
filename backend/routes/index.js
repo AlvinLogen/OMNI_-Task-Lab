@@ -5,6 +5,7 @@ const router = express.Router();
 // Sub-Routes
 const healthRoutes = require('./health-checks/health');
 const swaggerRoutes = require('./api-docs/swagger');
+const frontendLoggerRoutes = require('./logger/frontend-logger');
 
 // Serve static files (CSS, JS, images, etc.) with caching
 router.use(express.static(path.join(__dirname, '../../frontend/public'), {
@@ -40,5 +41,6 @@ router.get('/api', (req, res) => {
 // Mount Sub-Routes
 router.use('/', healthRoutes);
 router.use('/api/swagger', swaggerRoutes);
+router.use('/', frontendLoggerRoutes);
 
 module.exports = router;
