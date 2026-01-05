@@ -1,0 +1,207 @@
+@import url(style.css);
+
+/* Landing page splash screen */
+.landing-splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background: var(--dark-background);
+    z-index: 9999;
+    animation: fadeOutSplash 1s ease-in-out 3s forwards;
+}
+
+@keyframes fadeOutSplash {
+    to {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.landing-splash h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: 0.5rem;
+    color: var(--logo-color);
+    text-transform: uppercase;
+    animation: fadeOutText 1s ease-in-out 3s forwards;
+}
+
+.landing-splash h3 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0.3rem;
+    color: var(--logo-color);
+    text-transform: uppercase;
+    animation: fadeOutText 1s ease-in-out 3s forwards;
+}
+
+@keyframes fadeOutText {
+    to {
+        opacity: 0;
+    }
+}
+
+.landing-logo {
+    font-size: 300px;
+    font-weight: bold;
+    font-family: 'Arial Black', sans-serif;
+    color: var(--logo-color);
+    text-shadow:
+        0 0 20px var(--logo-shadow-color),
+        0 0 40px var(--logo-shadow-color);
+    user-select: none;
+    animation: logoToCorner 1.5s ease-in-out 3s forwards;
+}
+
+@keyframes logoToCorner {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(calc(-50vw + 80px), calc(-50vh + 60px)) scale(0.2);
+        opacity: 0;
+    }
+}
+
+/* Main page content */
+.main-content {
+    opacity: 0;
+    animation: fadeInContent 1s ease-in-out 3s forwards;
+}
+
+@keyframes fadeInContent {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Logo in top-left corner */
+.logo-corner {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: 'Arial Black', sans-serif;
+    color: var(--logo-color);
+    text-shadow:
+        0 0 5px var(--logo-shadow-color),
+        0 0 10px var(--logo-shadow-color);
+    user-select: none;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeInLogo 1s ease-in-out 4s forwards;
+    transition: color 0.3s ease;
+}
+
+@keyframes fadeInLogo {
+    to {
+        opacity: 1;
+    }
+}
+
+.logo-corner:hover {
+    color: var(--logo-primary);
+    text-shadow:
+        0 0 5px var(--logo-shadow),
+        0 0 10px var(--logo-shadow);
+    border: var(--logo-primary);
+    transition: color 0.3s ease-in-out;
+}
+
+/* Light mode colors */
+body[data-theme="light"] {
+    background: var(--light-background);
+    color: var(--light-text-primary);
+}
+
+body[data-theme="light"] .homepage-container {
+    color: var(--light-text-primary);
+}
+
+body[data-theme="light"] .content-area {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="light"] .landing-splash {
+    background: var(--light-background);
+    color: var(--light-text-primary);
+}
+
+body[data-theme="light"] {
+    --logo-color: var(--light-logo);
+    --logo-shadow-color: var(--light-logo-shadow);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--dark-tertiary);
+    background: var(--dark-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.theme-toggle svg {
+    width: 25px;
+    height: 25px;
+    color: var(--dark-text-primary);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle .sun-icon {
+    display: none;
+}
+
+.theme-toggle .moon-icon {
+    display: block;
+}
+
+/* Light mode button styles */
+body[data-theme="light"] .theme-toggle {
+    background: var(--light-secondary);
+    border-color: var(--light-tertiary);
+}
+
+body[data-theme="light"] .theme-toggle svg {
+    color: var(--light-text-primary);
+}
+
+body[data-theme="light"] .theme-toggle .logo.logo-corner {
+    color: var(--dark-text-primary);
+    border: var(--dark-text-primary);
+}
+
+body[data-theme="light"] .theme-toggle .sun-icon {
+    display: block;
+}
+
+body[data-theme="light"] .theme-toggle .moon-icon {
+    display: none;
+}
+

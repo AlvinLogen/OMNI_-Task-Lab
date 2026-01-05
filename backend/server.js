@@ -16,7 +16,7 @@ server.use(helmet({
     contentSecurityPolicy: {
         defaultSrc: ["'self'"],
         styleSrc: ["'self'","'unsafe-inline'"],
-        scriptSrc: ["'self'"],
+        scriptSrc: ["'unsafe-inline'"],
         imgSrc: ["'self'","'data:'","'https:'"]
     }
 }));
@@ -24,7 +24,7 @@ server.use(helmet({
 // Rate Limiting
 server.use(rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per WindowMS
+    max: 500, // Limit each IP to 100 requests per WindowMS
     message: 'Too many requests from this IP, please try again later',
     standardHeaders: true, 
     legacyHeaders: true
@@ -36,7 +36,7 @@ server.use(cors({
     credentials: true
 }));
 
-// Session Configuration
+// Compression Configuration
 server.use(compression());
 server.use(express.json({limit: '10mb'}));
 server.use(express.urlencoded({extended: true, limit: '10mb'}));
@@ -48,24 +48,32 @@ const startServer = async () => {
     try {
         await connectDB();
         server.listen(PORT, () => {
-        console.log(`Server is running on http://localhost/:${PORT}`);
+            logger.info(`OMNI Task Lab server running on port ${PORT}`);
+            logger.info(`Environment: ${process.env.NODE_ENV} || 'development`);
+            console.log(`Server is running on http://localhost/:${PORT}`);
         });
     } catch (error) {
+        logger.error('Failed to start server:', error);
+        
         res.status(500).json({
             status: "error",
             error_details: error
         });
+        
+        process.exit(1);
     }
 };
 
 //  Handle graceful shutdown
-process.on('SIGTERM', () => {
+process.on('SIGTERM', async () => {
+    await disconnectDB();
     logger.info('SIGTERM received, shutting down gracefully');
     process.exit(0);
 });
 
 process.on('SIGINT', async () => {
     await disconnectDB();
+    logger.info('SIGTERM received, shutting down gracefully');
     process.exit(0);
 });
 

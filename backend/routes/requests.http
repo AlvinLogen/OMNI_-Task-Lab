@@ -1,0 +1,13 @@
+
+### Variables
+@baseUrl = http://localhost:8080/api
+@contentType = application/json
+
+### Connection Check
+GET {{baseUrl}}/
+
+### Database Check
+GET {{baseUrl}}/db-health
+
+### Swagger Documentation
+GET {{baseUrl}}/swagger

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Database Connection Check
-router.get('/db-health', async (req, res) => {
+router.get('/api/db-health', async (req, res) => {
     const { getPool } = require('../../database/connection');
 
     try {

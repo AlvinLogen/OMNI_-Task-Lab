@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const sql = require('mssql');
+const logger = require('../utils/logger');
 
 const config = {
     user: process.env.STG_DB_USR,
@@ -14,26 +15,110 @@ const config = {
     },
     options: {
         encrypt: false,
-        trustServerCertificate: false
+        trustServerCertificate: false,
+        enableArithAbort: true,
+        requestTimeout: 30000
     }
 };
 
-let pool = null;
+let pool;
 
+// Create database connection 
 const connectDB = async () => {
-    if (pool) return pool;
-    pool = await sql.connect(config);
-    console.log(`Connected to Database: ${config.database}`);
+    try {
+        pool = await sql.connect(config);
+        logger.info(`Connected to SQL Server Database: ${config.database}`);
+        return pool;
+    } catch (error) {
+        logger.error(`Connection to Database: ${config.database} failed`, error);
+        throw error;   
+    }
+};
+
+// Create database connection pool
+const getPool = () => {
+
+    if (!pool){
+        throw new Error('Database not connected. Call connectDB first');
+    }
+
     return pool;
 };
 
-const getPool = () => pool;
+// Execute SQL Queries with parameterized inputs
+const executeQuery = async (query, parameters = {}) => {
+    try {
+        const pool = await getPool();
+        const request = pool.request();
 
-const disconnectDB = async () => {
-    if (pool) {
-        await pool.close();
-        pool = null;
+        // Escape each parameter
+        Object.keys(parameters).forEach(key => {
+            request.input(key, parameters[key])
+        });
+
+        // Query with parameters safely embedded
+        const result = await request.query(query);
+
+        if(process.env.NODE_ENV === 'development'){
+            logger.debug('Query executed succesfully:', {
+                query,
+                parameters
+            })
+        }
+
+        return result;
+        
+    } catch (error) {
+        logger.error('Query execution failed:', {
+            error: error.message,
+            query,
+            parameters
+        })
     }
 };
 
-module.exports = {connectDB, disconnectDB, sql, getPool};
+// Execute SQL Procedures with parameterized inputs
+const executeProcedure = async(procedureName, parameters = {}) => {
+    try {
+        const pool = await getPool();
+        const request = pool.request();
+
+        // Escape Parameters in Procedure
+        Object.keys(parameters).forEach(key => {
+            request.input(key, parameters[key]);
+        });
+
+        const result = await request.execute(procedureName);
+
+        return result;
+
+    } catch (error) {
+        logger.error('Procedure exeution failed', {
+            error: error.message,
+            procedureName, 
+            parameters
+        })
+    }
+};
+
+// Disconnect from database gracefully
+const disconnectDB = async () => {
+    try {
+        if(pool){
+            await pool.close();
+            logger.info(`Connection to database: ${config.database} closed`);
+            let pool = null;
+        }
+    } catch (error) {
+        logger.error('Error closing database connection:', error);
+    }
+};
+
+module.exports = {
+    connectDB, 
+    disconnectDB, 
+    sql, 
+    getPool,
+    executeQuery,
+    executeProcedure
+};

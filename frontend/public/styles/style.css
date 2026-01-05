@@ -1,0 +1,116 @@
+:root {
+    --light-primary: #cecfd2;
+    --light-secondary: #72767d;
+    --light-tertiary: #484d55;
+    --light-background: #e6e7e8; 
+    --light-text-primary: #222831; 
+    --light-text-secondary: #484d55;
+    --light-logo: #222831;
+    --light-logo-shadow: rgba(34, 40, 49, 0.4); 
+
+    --dark-primary: #484d55; 
+    --dark-secondary: #484d55;
+    --dark-tertiary: #72767d; 
+    --dark-background: #222831;
+    --dark-text-primary: #e6e7e8;
+    --dark-text-secondary: #cecfd2;
+    --dark-logo: #e6e7e8;
+    --dark-logo-shadow: rgba(230, 231, 232, 0.4); 
+
+    --logo-primary: #8C1007;
+    --logo-shadow: #660B05;
+    
+    --logo-color: var(--dark-logo);
+    --logo-shadow-color: var(--dark-logo-shadow);
+
+    --success-color: #059669;
+    --warning-color: #d97706;
+    --error-color: #dc2626;
+
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --background: var(--dark-background);
+    --primary: var(--dark-primary);
+    --secondary: var(--dark-secondary);
+
+    --font-family: 'Arial', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[data-theme="light"] {
+    --text-primary: var(--light-text-primary);
+    --text-secondary: var(--light-text-secondary);
+    --background: var(--light-background);
+    --primary: var(--light-primary);
+    --secondary: var(--light-secondary);
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--background);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Navigation Menu*/
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2rem;
+    height: 4rem;
+}
+
+.app-name {
+    padding-left: 3.8rem;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    color: var(--text-secondary);
+}
+
+.main-nav ul {
+    color: var(--text-secondary);
+    list-style-type: none;
+    margin: 0;
+    padding-top: 0.3rem;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.main-nav li a {
+    display: block;
+    text-align: center;
+    padding: 2rem 3rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Main Container*/
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 100px 50px 50px 50px;
+}
+
+.content-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 2rem;
+    text-align: center;
+}
+
+
