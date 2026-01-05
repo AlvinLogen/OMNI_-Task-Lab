@@ -97,30 +97,26 @@ BEGIN
         --Foreign Key Constraints
         CONSTRAINT fk_tasks_app_id FOREIGN KEY (app_id) REFERENCES application(app_id) ON DELETE CASCADE, 
         CONSTRAINT fk_tasks_server_id FOREIGN KEY (server_id) REFERENCES server(server_id) ON DELETE CASCADE,
-        CONSTRAINT fk_tasks_parent_task_id FOREIGN KEY (parent_task_id) REFERENCES tasks(task_id) ON UPDATE NO ACTION,
+        CONSTRAINT fk_tasks_parent_task_id FOREIGN KEY (parent_task_id) REFERENCES tasks(task_id) ON UPDATE NO ACTION ON DELETE CASCADE,
         CONSTRAINT fk_tasks_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 END
 GO
 
 -- Table Indexes
--- User Table indexes
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_user_id' AND object_id = OBJECT_ID('users')) CREATE NONCLUSTERED INDEX idx_user_id ON users(user_id);
+-- User Table indexes 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_user_email' AND object_id = OBJECT_ID('users')) CREATE NONCLUSTERED INDEX idx_user_email ON users(email);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_user_name' AND object_id = OBJECT_ID('users')) CREATE NONCLUSTERED INDEX idx_user_name ON users(first_name);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_user_department_id'  AND object_id = OBJECT_ID('users')) CREATE NONCLUSTERED INDEX idx_user_department_id ON users(department_id);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_user_type' AND object_id = OBJECT_ID('users')) CREATE NONCLUSTERED INDEX idx_user_type ON users(user_type);
--- Application Table Indexes    
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_app_id' AND object_id = OBJECT_ID('application')) CREATE NONCLUSTERED INDEX idx_app_id ON application(app_id);
+-- Application Table Indexes 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_app_name' AND object_id = OBJECT_ID('application')) CREATE NONCLUSTERED INDEX idx_app_name ON application(app_name);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_app_type' AND object_id = OBJECT_ID('application')) CREATE NONCLUSTERED INDEX idx_app_type ON application(app_type);
 -- Server Table Indexes
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_server_id' AND object_id = OBJECT_ID('server')) CREATE NONCLUSTERED INDEX idx_server_id ON server(server_id); 
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_server_name' AND object_id = OBJECT_ID('server')) CREATE NONCLUSTERED INDEX idx_server_name ON server(server_name);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_server_env' AND object_id = OBJECT_ID('server')) CREATE NONCLUSTERED INDEX idx_server_env ON server(server_env);
 -- Tasks Table Indexes 
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_task_id' AND object_id = OBJECT_ID('tasks')) CREATE NONCLUSTERED INDEX idx_task_id ON tasks(task_id);
-IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_parent_task_id' AND object_id = OBJECT_ID('tasks')) CREATE NONCLUSTERED INDEX idx_parent_task_id ON tasks(task_id);
+IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_parent_task_id' AND object_id = OBJECT_ID('tasks')) CREATE NONCLUSTERED INDEX idx_parent_task_id ON tasks(parent_task_id);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_task_name' AND object_id = OBJECT_ID('tasks')) CREATE NONCLUSTERED INDEX idx_task_name ON tasks(task_name);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_task_type' AND object_id = OBJECT_ID('tasks')) CREATE NONCLUSTERED INDEX idx_task_type ON tasks(task_type);
 IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = 'idx_task_status' AND object_id = OBJECT_ID('tasks')) CREATE NONCLUSTERED INDEX idx_task_status ON tasks(task_status);

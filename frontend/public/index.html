@@ -4,23 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/logo.css" />
+    <meta name="description" content="OMNI Task Lab - Task Orchestration Application for managing daily bespoke tasks">
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/logo.css" />
     <script src="./scripts/theme.js" defer></script>
     <title>OMNI Task Lab</title>
 </head>
 
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Landing Splash Screen -->
     <div class="landing-splash">
         <h1>OMNI Task Lab</h1>
-        <div class="landing-logo">O</div>
+        <div class="landing-logo" aria-hidden="true">O</div>
         <h3>Task Orchestration Application</h3>
     </div>
 
     <!--Dark-Mode Toggle-->
-    <div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme">
             <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"></circle>
@@ -34,48 +37,46 @@
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
             <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2">
+            fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
-        </button>
-    </div>
+    </button>
 
     <!-- Main Page Content -->
-     <div class="app-container">
+    <div class="app-container">
         <header class="header-content">
             <div class="logo-section">
-                <div class="logo-corner">O</div>
+                <div class="logo-corner" role="img" aria-label="OMNI Task Lab Logo" tabindex="0">O</div>
                 <div class="app-name">Task Lab</div>
             </div>
             
             <div class="nav-section">
-                <nav class="main-nav">
+                <nav class="main-nav" aria-label="Main navigation">
                     <ul class="nav-list">
-                        <li class="nav-item"><a class="dashboard">Dashboard</a></li>
-                        <li class="nav-item"><a class="applications">Applications</a></li>
-                        <li class="nav-item"><a class="tasks">Tasks</a></li>
-                        <li class="nav-item"><a class="calendar">Calendar</a></li>
+                        <li class="nav-item"><a href="#dashboard" class="dashboard">Dashboard</a></li>
+                        <li class="nav-item"><a href="#applications" class="applications">Applications</a></li>
+                        <li class="nav-item"><a href="#tasks" class="tasks">Tasks</a></li>
+                        <li class="nav-item"><a href="#calendar" class="calendar">Calendar</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="user-section">
-                <div class="user-info">
-
+                <div class="user-info" aria-label="User information">
+                    <!-- User info will be populated here -->
                 </div>
             </div>
         </header>
 
-        <main class="main-container">
+        <main class="main-container" id="main-content">
             <div class="content-area">
-                Testing
+                <p>Testing</p>
             </div>
         </main>
 
         <footer class="footer-container">
-
+            <p>&copy; 2026 OMNI Task Lab. All rights reserved.</p>
         </footer>
-
-     </div>
+    </div>
 </body>
 
 </html>

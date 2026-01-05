@@ -1,17 +1,17 @@
 // Theme Toggle Functionality
 (function() {
     const landingSplash = document.querySelector('.landing-splash');
-    const mainContent = document.querySelector('.main-content');
+    const appContainer = document.querySelector('.app-container');
     const themeToggle = document.getElementById('themeToggle');
     const currentTheme = localStorage.getItem('theme') || 'dark';
 
-    if (landingSplash && mainContent) {
+    if (landingSplash && appContainer) {
         const lastVisitDate = localStorage.getItem('lastVisitDate');
         const current_day = new Date().toDateString();
         
-        if (lastVisitDate == current_day) {
+        if (lastVisitDate === current_day) {
             landingSplash.style.display = 'none';
-            mainContent.style.opacity = '1';
+            appContainer.style.opacity = '1';
         } else {
             setTimeout(() => {
                 localStorage.setItem('lastVisitDate', current_day);

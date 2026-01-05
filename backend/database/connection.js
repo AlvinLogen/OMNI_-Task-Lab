@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const sql = require('mssql');
 const logger = require('../utils/logger');
+const { error } = require('console');
 
 const config = {
     user: process.env.STG_DB_USR,
@@ -10,7 +11,7 @@ const config = {
     server: process.env.STG_DB_IP,
     pool: {
         max: 10,
-        min:0,
+        min: 2,
         idleTimeoutMillis: 30000
     },
     options: {
@@ -73,7 +74,8 @@ const executeQuery = async (query, parameters = {}) => {
             error: error.message,
             query,
             parameters
-        })
+        });
+        throw error;
     }
 };
 
@@ -97,7 +99,8 @@ const executeProcedure = async(procedureName, parameters = {}) => {
             error: error.message,
             procedureName, 
             parameters
-        })
+        });
+        throw error;
     }
 };
 
@@ -107,10 +110,11 @@ const disconnectDB = async () => {
         if(pool){
             await pool.close();
             logger.info(`Connection to database: ${config.database} closed`);
-            let pool = null;
+            pool = null;
         }
     } catch (error) {
         logger.error('Error closing database connection:', error);
+        throw error;
     }
 };
 
