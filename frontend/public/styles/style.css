@@ -136,8 +136,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-md) var(--spacing-lg);
-    height: var(--header-height);
+    padding: var(--spacing-lg) var(--spacing-lg);
+    height: auto;
+    min-height: var(--header-height);
     position: relative;
 }
 
@@ -148,28 +149,29 @@ body {
 }
 
 .app-name {
-    padding-left: 3.8rem;
     text-transform: uppercase;
     font-size: clamp(1.25rem, 3vw, 1.875rem);
     font-weight: bold;
     letter-spacing: 0.2rem;
     color: var(--text-secondary);
+    line-height: 1;
 }
 
 .nav-section {
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .main-nav ul {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
     letter-spacing: 0.15rem;
     text-transform: uppercase;
 }
@@ -178,26 +180,27 @@ body {
     display: inline-block;
 }
 
+.main-nav li a:link,
+.main-nav li a:visited,
+.main-nav li a:hover,
+.main-nav li a:active {
+    text-decoration: none;
+    color: var(--text-secondary) !important;
+}
+
 .main-nav li a {
     display: block;
     text-align: center;
     padding: var(--spacing-md) var(--spacing-lg);
     font-weight: bold;
-    font-size: var(--font-size-sm);
-    color: var(--text-secondary);
-    text-decoration: none;
+    font-size: var(--font-size-base);
+    color: var(--text-secondary) !important;
     border-radius: 0.25rem;
-    transition: background-color var(--transition-fast), color var(--transition-fast);
-}
-
-.main-nav li a:hover {
-    background-color: var(--primary);
-    color: var(--text-primary);
 }
 
 .main-nav li a:focus-visible {
     outline: 2px solid var(--logo-primary);
-    outline-offset: 2px;
+    outline-offset: 1px;
 }
 
 .user-section {
@@ -231,7 +234,7 @@ body {
     padding: var(--spacing-lg);
     text-align: center;
     color: var(--text-secondary);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
 }
 
 /* Responsive Design */

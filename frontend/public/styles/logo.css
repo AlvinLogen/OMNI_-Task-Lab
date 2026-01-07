@@ -84,9 +84,8 @@
 
 /* Logo in top-left corner */
 .logo-corner {
-    position: fixed;
-    top: 10px;
-    left: 10px;
+    position: relative;
+    margin-top: -1rem;
     font-size: clamp(40px, 5vw, 50px);
     font-weight: bold;
     font-family: 'Arial Black', sans-serif;
@@ -100,6 +99,7 @@
     opacity: 0;
     animation: fadeInLogo 1s ease-in-out 4s forwards;
     transition: color var(--transition-base, 0.3s ease), text-shadow var(--transition-base, 0.3s ease);
+    line-height: 1;
 }
 
 @keyframes fadeInLogo {
@@ -109,10 +109,10 @@
 }
 
 .logo-corner:hover {
-    color: var(--logo-primary);
+    color: var(--logo-color);
     text-shadow:
-        0 0 5px var(--logo-shadow),
-        0 0 10px var(--logo-shadow);
+        0 0 5px var(--logo-shadow-color),
+        0 0 10px var(--logo-shadow-color);
 }
 
 .logo-corner:focus-visible {
@@ -123,7 +123,7 @@
 /* Theme Toggle Button */
 .theme-toggle {
     position: fixed;
-    top: 30px;
+    top: 35px;
     right: 20px;
     width: 40px;
     height: 40px;
