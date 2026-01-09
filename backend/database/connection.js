@@ -2,13 +2,12 @@ require('dotenv').config();
 
 const sql = require('mssql');
 const { databaseLogger: logger } = require('../utils/logger');
-const { error } = require('console');
 
 const config = {
-    user: process.env.STG_DB_USR,
-    password: process.env.STG_DB_PWD,
-    database: process.env.STG_DB_NME,
-    server: process.env.STG_DB_IP,
+    user: process.env.NODE_ENV === 'production' ? process.env.PRD_DB_USR : process.env.STG_DB_USR,
+    password: process.env.NODE_ENV === 'production' ? process.env.PRD_DB_PWD : process.env.STG_DB_PWD,
+    database: process.env.NODE_ENV === 'production' ? process.env.PRD_DB_NME : process.env.STG_DB_NME,
+    server: process.env.NODE_ENV === 'production' ? process.env.PRD_DB_IP : process.env.STG_DB_IP,
     pool: {
         max: 10,
         min: 2,
